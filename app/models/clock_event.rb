@@ -23,6 +23,6 @@ class ClockEvent < ApplicationRecord
   end
 
   def total_time_in_hours
-    (end_time - start_time) / 1.hours if start_time.present? && end_time.present?
+    (end_time - start_time) / 60 if start_time.present? && end_time.present?
   end
 end

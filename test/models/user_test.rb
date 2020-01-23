@@ -1,12 +1,11 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
- 
   test 'user with active_clock' do
     user = users(:with_active_clock)
     assert user.active_clock.present?
   end
-  
+
   test 'user with no active_clock' do
     user = users(:without_active_clock)
     assert_nil user.active_clock

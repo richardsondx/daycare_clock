@@ -24,7 +24,7 @@
     </tr>
     
     <% @clock_events.each_with_index do |event, index| %>
-      <tr class="<%= active?(event) %>">
+      <tr class="<%= toggle_active_class(event) %>">
         <th scope='row'><%= index + 1 %></th>
         <td ><%= format_time(event.start_time, '%a, %B %d – %H:%M %p') %></td>
         <td>

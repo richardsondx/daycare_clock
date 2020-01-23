@@ -3,7 +3,7 @@ module ClockHelper
     time&.strftime(strftime)
   end
 
-  def active?(event)
+  def toggle_active_class(event)
     'table-danger' if event.end_time.nil?
   end
 end

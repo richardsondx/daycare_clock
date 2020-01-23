@@ -8,5 +8,5 @@ active_clock:
 clock_ended:
   id: 2
   user_id: 1
-  start_time: 2020-01-22 13:41:20
-  end_time: 2020-01-22 13:41:20
+  start_time: 2020-01-22 13:41:00
+  end_time: 2020-01-22 13:42:00

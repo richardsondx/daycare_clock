@@ -44,7 +44,8 @@ To start the test suite run:
 $ rake test
 `
 
-Test coverage are located at app/coverage
+Test coverage are located at: coverage/index.html
+
 
 * Services (job queues, cache servers, search engines, etc.)
 
