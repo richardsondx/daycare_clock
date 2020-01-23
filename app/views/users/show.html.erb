@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <h1><%= @user.name %>'s account</h1>
+  <p>Timezone: <%= Time.zone %></p>
+  <%= form_tag(logout_path, method: :delete) do %>
+    <%= submit_tag 'Logout', class: 'btn btn-danger'%>
+  <% end %>
+  <hr/>
+  <div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">Clock in and Clock out</h4>
+    <p>Don't forget to Clock in when you arrive at the daycare.</p>
+    <hr>
+    <p class="mb-0">Make sure to clock out if you go out for Lunch!</p>
+  </div>
+  <%= render 'clocks/clock', clock: @clock %>
+  
+  <br/>
+  <table class='table'>
+    <tr>
+      <th scope='col'>#</th>
+      <th scope='col'>Start Time</th>
+      <th scope='col'>End Time</th>
+      <th scope='col'>Total Time</th>
+      <th scope='col'></th>
+      <th scope='col'></th>
+    </tr>
+    
+    <% @clock_events.each_with_index do |event, index| %>
+      <tr class="<%= is_active?(event) %>">
+        <th scope='row'><%= index + 1 %></th>
+        <td ><%= format_time(event.start_time, '%a, %B %d – %H:%M %p') %></td>
+        <td>
+          <% if event.end_time.present? %>
+            <%= format_time(event.end_time, '%a, %B %d – %H:%M %p') %>
+          <% else %>
+            <span class="badge badge-pill badge-dark">Haven't Clocked Out</span>
+          <% end %>
+        </td>
+        <td><%= event.total_time_in_hours.try(:round, 3) %> hours</td>
+        <td>
+          <% if event.end_time.present? %>
+          <button type="button" class="btn btn-primary">Edit</button>
+          <% end %>
+
+        </td>
+        <td>
+          <%= form_tag(user_clock_delete_path(params[:id], event.id), method: :delete) do %>
+            <%= submit_tag 'Delete', class: 'btn btn-danger', data: { confirm: 'Are you sure?'} %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

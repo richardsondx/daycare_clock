@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <!-- Clock in Time -->
+  <h2><%= format_time(@clock.start_time, '%H:%M %p') || '...' %></h2>
+  <% if @clock.start_time.nil? && @clock.end_time.nil? %>
+    <%= form_tag(user_touch_clock_path(params[:id], 'clock_in'), method: :put, class: 'd-inline') do %>
+      <%= submit_tag 'Clock In', class: 'btn btn-success' %>
+    <% end %>
+  <% else %>
+    <button type="button" class="btn btn-secondary" disabled>Clock In</button>
+  <% end%>
+
+  <% if @clock.start_time.present? && @clock.end_time.nil? %>
+    <%= form_tag(user_touch_clock_path(params[:id], 'clock_out', clock_id:  @clock.id), method: :put, class: 'd-inline') do %>
+      <% hidden_field_tag :option, 'clock_in'%>
+      <%= submit_tag 'Clock Out', class: 'btn btn-warning' %>
+    <% end %>
+  <% else %>
+    <button type="button" class="btn btn-secondary" disabled>Clock Out</button>
+  <% end %>
+</div>
