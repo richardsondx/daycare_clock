@@ -5,6 +5,7 @@ class AuthController < ApplicationController
     
     if user
       session[:user_id] = user.id
+      flash[:notice] = 'Welcome back!'
       redirect_to user_path(user.id)
     else
       redirect_to root_path
@@ -17,6 +18,7 @@ class AuthController < ApplicationController
 
   def delete
     session[:user_id] = nil
+    flash[:notice] = 'You were successfully logged out'
     redirect_to root_path
   end
 end

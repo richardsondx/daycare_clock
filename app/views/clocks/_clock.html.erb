@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <!-- Clock in Time -->
-  <h2><%= format_time(@clock.start_time, '%H:%M %p') || '...' %></h2>
+  <h2><%= format_time(@clock.start_time, '%H:%M %p') || 'OUT OF OFFICE' %></h2>
+  
   <% if @clock.start_time.nil? && @clock.end_time.nil? %>
     <%= form_tag(user_touch_clock_path(params[:id], 'clock_in'), method: :put, class: 'd-inline') do %>
       <%= submit_tag 'Clock In', class: 'btn btn-success' %>

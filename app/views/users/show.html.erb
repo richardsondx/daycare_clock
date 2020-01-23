@@ -38,14 +38,11 @@
         <td><%= event.total_time_in_hours.try(:round, 3) %> hours</td>
         <td>
           <% if event.end_time.present? %>
-          <button type="button" class="btn btn-primary">Edit</button>
+            <%= link_to("Edit", edit_user_clock_path(params[:id], event.id), class: 'btn btn-primary') %>
           <% end %>
-
         </td>
         <td>
-          <%= form_tag(user_clock_delete_path(params[:id], event.id), method: :delete) do %>
-            <%= submit_tag 'Delete', class: 'btn btn-danger', data: { confirm: 'Are you sure?'} %>
-          <% end %>
+          <%= link_to('Delete', user_clock_delete_path(params[:id], event.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?'})%>
         </td>
       </tr>
     <% end %>

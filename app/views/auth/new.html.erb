@@ -7,7 +7,7 @@
 
     <%= form_tag(authenticate_path, method: :post) do%>
       <div class="form-group">
-        <div><%= text_field_tag :name, nil, class: 'form-control' %></div>
+        <div><%= text_field_tag :name, nil, placeholder: 'Employee Name', class: 'form-control' %></div>
       </div>
       <div><%= submit_tag 'Login', class: 'btn btn-primary'%></div>
     <% end%>

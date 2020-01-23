@@ -7,7 +7,9 @@ class ClocksController < ApplicationController
     @clock = current_user.active_clock || current_user.clock_events.new
   end
 
-  def edit; end
+  def edit
+    @clock_event = current_user.clock_events.find(params[:id])
+  end
 
   def touch_clock
     option = option_params[:option].to_sym
@@ -27,11 +29,13 @@ class ClocksController < ApplicationController
   end
 
   def update
-    clock_event = current_user.clock_events.find(params[:id])
+    clock_event = current_user.clock_events.find(params[:clock_id])
     if clock_event
       clock_event.update(clock_params)
+      flash[:notice] = 'The clock event was updated.'
       redirect_to user_path(current_user.id)
     else
+      flash[:notice] = 'The clock event failed to update ' + clock_even.errors.message
       redirect_to user_path(current_user.id)
     end
   end
@@ -39,6 +43,7 @@ class ClocksController < ApplicationController
   def delete
     clock_event = current_user.clock_events.find(params[:clock_id])
     clock_event.destroy unless clock_event.nil?
+    flash[:notice] = 'The clock event was destroyed.'
     redirect_to user_path(current_user.id)
   end
 
@@ -53,6 +58,6 @@ class ClocksController < ApplicationController
   end
 
   def clock_params
-    params.require(:clock_events).permit!
+    params.require(:clock_event).permit(:start_time, :end_time)
   end
 end

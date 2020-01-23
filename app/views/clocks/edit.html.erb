@@ -1,2 +1,6 @@
-<h1>Clock#edit</h1>
-<p>Find me in app/views/clock/edit.html.erb</p>
+<h1>Edit Clock</h1>
+<%= form_for(@clock_event, url: user_clock_update_path(params[:id], @clock_event.id), method: :put) do |f|%>
+  <%= f.datetime_field :start_time %>
+  <%= f.datetime_field :end_time %>
+  <%= f.submit 'Save' %>
+<% end %>
