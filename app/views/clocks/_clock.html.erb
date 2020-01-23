@@ -2,7 +2,7 @@
   <h2><%= format_time(@clock_event.start_time, '%H:%M %p') || 'OUT OF OFFICE' %></h2>
   
   <% if @clock_event.start_time.nil? && @clock_event.end_time.nil? %>
-    <%= form_tag(user_touch_clock_path( (params[:id] || @user.id), 'clock_in'), method: :put, class: 'd-inline') do %>
+    <%= form_tag(user_touch_clock_path( (params[:id] || @user.id), 'clock_in'), method: :put, class: 'd-inline', remote: true) do %>
       <%= text_field_tag :reason, nil, placeholder: 'e.g: lunch'%> ( optional )
       <br>
       <br>
@@ -13,7 +13,7 @@
   <% end%>
 
   <% if @clock_event.start_time.present? && @clock_event.end_time.nil? %>
-    <%= form_tag(user_touch_clock_path((params[:id] || @user.id ), 'clock_out', clock_id:  @clock_event.id), method: :put, class: 'd-inline') do %>
+    <%= form_tag(user_touch_clock_path((params[:id] || @user.id ), 'clock_out', clock_id:  @clock_event.id), method: :put, class: 'd-inline', remote: true) do %>
       <% hidden_field_tag :option, 'clock_in'%>
       <%= submit_tag 'Clock Out', class: 'btn btn-warning' %>
     <% end %>

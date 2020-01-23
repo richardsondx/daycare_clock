@@ -1,11 +1,11 @@
 class ClocksController < ApplicationController
   CLOCK_OPTIONS = %i[clock_in clock_out].freeze
 
-  def index; end
+  # def index; end
 
-  def new
-    @clock = current_user.active_clock || current_user.clock_events.new
-  end
+  # def new
+  #   @clock = current_user.active_clock || current_user.clock_events.new
+  # end
 
   def edit
     @clock_event = current_user.clock_events.find(params[:id])
@@ -16,34 +16,51 @@ class ClocksController < ApplicationController
     reason = params[:reason]
     return unless CLOCK_OPTIONS.include? option
 
-    clock_event = if params[:clock_id].present?
+    current_clock_event = if params[:clock_id].present?
                     current_user.clock_events
                                 .find(params[:clock_id])
                   else
                     initialize_clock
                   end
 
-    clock_event.clock_it!(option, reason)
-    redirect_to user_path(current_user.id)
+    current_clock_event.clock_it!(option, reason)
+    @clock_event = current_user.active_clock || current_user.clock_events.new
+    @user = current_user
+    @clock_events = @user.clock_events.where.not(created_at: nil)
+    respond_to do |format|
+      format.html { render 'users/show' }
+      format.js
+    end
   end
 
   def update
-    clock_event = current_user.clock_events.find(params[:clock_id])
-    if clock_event
-      clock_event.update(clock_params)
+    current_clock_event = current_user.clock_events.find(params[:clock_id])
+    if current_clock_event
+      current_clock_event.update(clock_params)
       flash[:notice] = 'The clock event was updated.'
     else
-      flash[:notice] = 'The clock event failed to update ' + clock_even.errors.message
+      flash[:notice] = 'The clock event failed to update ' + @clock_even.errors.message
     end
-
-    redirect_to user_path(current_user.id)
+    @user = current_user
+    @clock_event = current_user.active_clock || current_user.clock_events.new
+    @clock_events = @user.clock_events.where.not(created_at: nil)
+    respond_to do |format|
+      format.html { render 'users/show' }
+      format.js
+    end
   end
 
   def delete
     clock_event = current_user.clock_events.find(params[:clock_id])
     clock_event&.destroy
     flash[:notice] = 'The clock event was destroyed.'
-    redirect_to user_path(current_user.id)
+    @user = current_user
+    @clock_events = @user.clock_events.where.not(created_at: nil)
+    @clock_event = current_user.active_clock || current_user.clock_events.new
+    respond_to do |format|
+      format.html { render 'users/show' }
+      format.js
+    end
   end
 
   private

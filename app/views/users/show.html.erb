@@ -9,42 +9,11 @@
     <h4 class="alert-heading">Clock in and Clock out</h4>
     <p>Don't forget to Clock in when you arrive at the daycare. Optionaly you can add a reason but its not required. You can also clock in/out for Lunch!</p>
   </div>
-  <%= render 'clocks/clock', clock: @clock %>
-  
+  <div  id="clocker">
+   <%= render partial: 'clocks/clock', clock: @clock %>
+  </div>
   <br/>
-  <table class='table'>
-    <tr>
-      <th scope='col'>#</th>
-      <th scope='col'>Start Time</th>
-      <th scope='col'>End Time</th>
-      <th scope='col'>Total Time</th>
-      <th scope='col'>Reason</th>
-      <th scope='col'></th>
-      <th scope='col'></th>
-    </tr>
-    
-    <% @clock_events.each_with_index do |event, index| %>
-      <tr class="<%= toggle_active_class(event) %>">
-        <th scope='row'><%= index + 1 %></th>
-        <td ><%= format_time(event.start_time, '%a, %B %d – %H:%M %p') %></td>
-        <td>
-          <% if event.end_time.present? %>
-            <%= format_time(event.end_time, '%a, %B %d – %H:%M %p') %>
-          <% else %>
-            <span class="badge badge-pill badge-dark">Haven't Clocked Out</span>
-          <% end %>
-        </td>
-        <td><%= event.total_time_in_hours.try(:round, 3) %> hours</td>
-        <td><%= event.reason %></td>
-        <td>
-          <% if event.end_time.present? %>
-            <%= link_to("Edit", edit_user_clock_path((params[:id] || @user.id), event.id), class: 'btn btn-primary') %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to('Delete', user_clock_delete_path((params[:id] || @user.id), event.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?'})%>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <div id="clock_events">
+    <%= render partial: 'users/clock_events', clock_events: @clock_events %>
+  </div>
 </div>

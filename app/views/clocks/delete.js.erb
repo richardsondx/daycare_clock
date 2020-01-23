@@ -1,0 +1,2 @@
+$("#clocker").html("<%= escape_javascript(render partial: 'clock', locals: { clock_event: @clock_event, user: @user } ) %>"); 
+$("#clock_events").html("<%= escape_javascript(render partial: 'users/clock_events', locals: { clock_events: @clock_events, user: @user } ) %>"); 
