@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="jumbotron">
-    <h1 class="display-4">Daycare Centre</h1>
-    <p class="lead">Enter your name to authenticate into the employee portal</p>
+    <h1 class="display-4">Daycare Centre Clock in/out</h1>
+    <p class="lead">Enter your name to authenticate into your account</p>
     <hr class="my-4">
     <h2>Authenticate</h2>
 
@@ -12,4 +12,7 @@
       <div><%= submit_tag 'Login', class: 'btn btn-primary'%></div>
     <% end%>
   </div>
+
+  <hr>
+  <%= render 'recent_login' %>
 </div>

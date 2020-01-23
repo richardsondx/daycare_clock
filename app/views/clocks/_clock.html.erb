@@ -3,6 +3,9 @@
   
   <% if @clock.start_time.nil? && @clock.end_time.nil? %>
     <%= form_tag(user_touch_clock_path(params[:id], 'clock_in'), method: :put, class: 'd-inline') do %>
+      <%= text_field_tag :reason, nil, placeholder: 'e.g: lunch'%> ( optional )
+      <br>
+      <br>
       <%= submit_tag 'Clock In', class: 'btn btn-success' %>
     <% end %>
   <% else %>

@@ -10,11 +10,12 @@ class ClockEvent < ApplicationRecord
     end
   end
 
-  def clock_it!(option)
+  def clock_it!(option, reason = nil)
     # Time.zone = ActiveSupport::TimeZone.new(timezone)
 
     case option
     when :clock_in
+      self.reason = reason if reason.present?
       self.start_time = Time.now.in_time_zone(Rails.application.config.time_zone)
       save
     when :clock_out

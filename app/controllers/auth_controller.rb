@@ -13,6 +13,7 @@ class AuthController < ApplicationController
   end
 
   def new
+    @users = User.all
     redirect_to user_path(current_user.id) if current_user
   end
 

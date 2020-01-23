@@ -13,6 +13,7 @@ class ClocksController < ApplicationController
 
   def touch_clock
     option = option_params[:option].to_sym
+    reason = params[:reason]
     return unless CLOCK_OPTIONS.include? option
     clock_event = if params[:clock_id].present? 
                     current_user.clock_events
@@ -21,7 +22,7 @@ class ClocksController < ApplicationController
                     initialize_clock
                   end
                   
-    if clock_event.clock_it!(option)
+    if clock_event.clock_it!(option, reason)
       redirect_to user_path(current_user.id)
     else
       redirect_to user_path(current_user.id)

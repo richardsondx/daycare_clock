@@ -4,12 +4,10 @@
   <%= form_tag(logout_path, method: :delete) do %>
     <%= submit_tag 'Logout', class: 'btn btn-danger'%>
   <% end %>
-  <hr/>
+  <hr>
   <div class="alert alert-warning" role="alert">
     <h4 class="alert-heading">Clock in and Clock out</h4>
-    <p>Don't forget to Clock in when you arrive at the daycare.</p>
-    <hr>
-    <p class="mb-0">Make sure to clock out if you go out for Lunch!</p>
+    <p>Don't forget to Clock in when you arrive at the daycare. Optionaly you can add a reason but its not required. You can also clock in/out for Lunch!</p>
   </div>
   <%= render 'clocks/clock', clock: @clock %>
   
@@ -20,6 +18,7 @@
       <th scope='col'>Start Time</th>
       <th scope='col'>End Time</th>
       <th scope='col'>Total Time</th>
+      <th scope='col'>Reason</th>
       <th scope='col'></th>
       <th scope='col'></th>
     </tr>
@@ -36,6 +35,7 @@
           <% end %>
         </td>
         <td><%= event.total_time_in_hours.try(:round, 3) %> hours</td>
+        <td><%= event.reason %></td>
         <td>
           <% if event.end_time.present? %>
             <%= link_to("Edit", edit_user_clock_path(params[:id], event.id), class: 'btn btn-primary') %>
