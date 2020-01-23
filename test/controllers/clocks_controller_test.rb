@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class ClocksControllerTest < ActionDispatch::IntegrationTest
-  # test 'should get index' do
-  #   get clock_index_url
-  #   assert_response :success
-  # end
+  test 'should get index' do
+    get clock_index_url
+    assert_response :success
+  end
 
   # test 'should get new' do
   #   get clock_new_url
