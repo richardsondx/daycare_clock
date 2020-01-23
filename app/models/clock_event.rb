@@ -5,9 +5,7 @@ class ClockEvent < ApplicationRecord
   def end_must_be_after_start
     return true if end_time.nil?
 
-    if start_time >= end_time
-      errors.add(:end_time, 'must be ater start time')
-    end
+    errors.add(:end_time, 'must be ater start time') if start_time >= end_time
   end
 
   def clock_it!(option, reason = nil)
@@ -25,8 +23,6 @@ class ClockEvent < ApplicationRecord
   end
 
   def total_time_in_hours
-    if start_time.present? && end_time.present?
-      (end_time - start_time ) / 1.hours
-    end
+    (end_time - start_time) / 1.hours if start_time.present? && end_time.present?
   end
 end

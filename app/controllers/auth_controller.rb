@@ -2,7 +2,7 @@ class AuthController < ApplicationController
   def authenticate
     user = User.find_by(name: params[:name])
     user ||= User.create!(name: params[:name]) unless params[:name].empty?
-    
+
     if user
       session[:user_id] = user.id
       flash[:notice] = 'Welcome back!'

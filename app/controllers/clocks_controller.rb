@@ -15,18 +15,16 @@ class ClocksController < ApplicationController
     option = option_params[:option].to_sym
     reason = params[:reason]
     return unless CLOCK_OPTIONS.include? option
-    clock_event = if params[:clock_id].present? 
+
+    clock_event = if params[:clock_id].present?
                     current_user.clock_events
-                      .find(params[:clock_id])  
+                                .find(params[:clock_id])
                   else
                     initialize_clock
                   end
-                  
-    if clock_event.clock_it!(option, reason)
-      redirect_to user_path(current_user.id)
-    else
-      redirect_to user_path(current_user.id)
-    end
+
+    clock_event.clock_it!(option, reason)
+    redirect_to user_path(current_user.id)
   end
 
   def update
@@ -34,16 +32,16 @@ class ClocksController < ApplicationController
     if clock_event
       clock_event.update(clock_params)
       flash[:notice] = 'The clock event was updated.'
-      redirect_to user_path(current_user.id)
     else
       flash[:notice] = 'The clock event failed to update ' + clock_even.errors.message
-      redirect_to user_path(current_user.id)
     end
+
+    redirect_to user_path(current_user.id)
   end
 
   def delete
     clock_event = current_user.clock_events.find(params[:clock_id])
-    clock_event.destroy unless clock_event.nil?
+    clock_event&.destroy
     flash[:notice] = 'The clock event was destroyed.'
     redirect_to user_path(current_user.id)
   end

@@ -42,7 +42,7 @@ group :development, :test do
 
   # A Ruby gem to load environment variables from `.env`.
   gem 'dotenv-rails'
-  
+
   # Minitest integration for Rails 6.0
   gem 'minitest-rails', '~> 6.0.0'
 end
