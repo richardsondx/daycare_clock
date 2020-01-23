@@ -38,11 +38,11 @@
         <td><%= event.reason %></td>
         <td>
           <% if event.end_time.present? %>
-            <%= link_to("Edit", edit_user_clock_path(params[:id], event.id), class: 'btn btn-primary') %>
+            <%= link_to("Edit", edit_user_clock_path((params[:id] || @user.id), event.id), class: 'btn btn-primary') %>
           <% end %>
         </td>
         <td>
-          <%= link_to('Delete', user_clock_delete_path(params[:id], event.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?'})%>
+          <%= link_to('Delete', user_clock_delete_path((params[:id] || @user.id), event.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?'})%>
         </td>
       </tr>
     <% end %>

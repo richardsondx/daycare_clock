@@ -8,6 +8,6 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @clock_events = @user.clock_events.where.not(created_at: nil)
-    @clock = current_user.active_clock || current_user.clock_events.new
+    @clock_event = current_user.active_clock || current_user.clock_events.new
   end
 end
