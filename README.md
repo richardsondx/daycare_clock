@@ -43,6 +43,7 @@ To start the test suite run:
 `
 $ rake test
 `
+
 Test coverage are located at app/coverage
 
 * Services (job queues, cache servers, search engines, etc.)
@@ -63,5 +64,4 @@ https://postgresapp.com/
 
 This project is deployed using Heroku
 
-Refer to https://devcenter.heroku.com/categories/deployment for detail
-* ...
+Refer to https://devcenter.heroku.com/categories/deployment for details
