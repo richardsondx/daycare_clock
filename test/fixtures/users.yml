@@ -1,7 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+with_active_clock:
+  id: 1
+  name: Danny
 
-two:
-  name: MyString
+without_active_clock:
+  id: 2
+  name: Danny
