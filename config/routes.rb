@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :users , only: [:show] do
     put '/clocks/:option', to: 'clocks#touch_clock', as: 'touch_clock' 
-    resources :clocks, only: [:new, :edit] do
+    resources :clocks, only: [:edit] do
       put '/update', to: 'clocks#update', as: 'update'
       delete '/', to: 'clocks#delete', as: 'delete'
     end

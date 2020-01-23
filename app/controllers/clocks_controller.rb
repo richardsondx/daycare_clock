@@ -1,12 +1,6 @@
 class ClocksController < ApplicationController
   CLOCK_OPTIONS = %i[clock_in clock_out].freeze
 
-  # def index; end
-
-  # def new
-  #   @clock = current_user.active_clock || current_user.clock_events.new
-  # end
-
   def edit
     @clock_event = current_user.clock_events.find(params[:id])
   end
@@ -14,16 +8,20 @@ class ClocksController < ApplicationController
   def touch_clock
     option = option_params[:option].to_sym
     reason = params[:reason]
-    return unless CLOCK_OPTIONS.include? option
+    unless CLOCK_OPTIONS.include? option
+      redirect_to root_path
+      return
+    end
 
-    current_clock_event = if params[:clock_id].present?
-                    current_user.clock_events
+    current_clock_event =  if params[:clock_id].present?
+                              current_user.clock_events
                                 .find(params[:clock_id])
-                  else
-                    initialize_clock
-                  end
+                            else 
+                              initialize_clock
+                            end
 
     current_clock_event.clock_it!(option, reason)
+
     @clock_event = current_user.active_clock || current_user.clock_events.new
     @user = current_user
     @clock_events = @user.clock_events.where.not(created_at: nil)
@@ -34,12 +32,12 @@ class ClocksController < ApplicationController
   end
 
   def update
-    current_clock_event = current_user.clock_events.find(params[:clock_id])
+    current_clock_event = current_user.clock_events.find_by(id: params[:clock_id])
     if current_clock_event
       current_clock_event.update(clock_params)
       flash[:notice] = 'The clock event was updated.'
     else
-      flash[:notice] = 'The clock event failed to update ' + @clock_even.errors.message
+      flash[:notice] = "The clock event failed to update. That clock event doesn't"
     end
     @user = current_user
     @clock_event = current_user.active_clock || current_user.clock_events.new
