@@ -10,8 +10,6 @@ environment.plugins.prepend('Provide',
   })
 )
 
-const { environment } = require('@rails/webpacker');
-
 environment.config.merge({
   module: {
     rules: [
